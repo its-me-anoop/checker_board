@@ -96,7 +96,7 @@ def draw_column(row):
             draw_square(30, "black", 2, "white")
         else:
             draw_square(30, "black", 2, "black")
-            place_checker_piece(row)
+            # place_checker_piece(row)
         t.penup()
         t.forward(30)
         t.pendown()
@@ -118,28 +118,36 @@ def go_to_next_row():
     t.pendown()
 
 
-def center_checker_board():
+def turtle_start_position(x, y):
     """
     Adjusts the starting position of the turtle so that the checkerboard will be drawn centered on the screen.
 
     This function assumes the turtle starts at the center of the screen, and it moves the turtle up and left by 120 units to reposition the starting point. This makes the checkerboard, when drawn, appear centered on the screen.
 
     Example usage:
-        center_checker_board()
+        turtle_start_position()
 
     This moves the turtle to an appropriate starting position to draw a centered checkerboard.
     """
     t.penup()
-    t.back(120)
-    t.left(90)
-    t.forward(120)
-    t.right(90)
+    t.goto(t.xcor() + x, t.ycor() + y)
     t.pendown()
 
 
-center_checker_board()
+turtle_start_position(-120, 120)
+# Draw a checker box
 draw_square(240, "black", 3)
 for row in range(8):
     draw_column(row)
+    go_to_next_row()
+# Place the checkers
+turtle_start_position(0, 240)
+for row in range(8):
+    for column in range(8):
+        if column % 2 != row % 2:
+            place_checker_piece(row)
+        t.penup()
+        t.forward(30)
+        t.pendown()
     go_to_next_row()
 t.done()
